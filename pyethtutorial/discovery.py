@@ -48,8 +48,8 @@ class PingServer(object):
 
     def wrap_packet(self, packet):
         payload = packet.packet_type + rlp.encode(packet.pack())
-        sig = self.priv_key.ecdsa_sign_recoverable(keccak256(payload), raw=True)
-        sig_serialized = self.priv_key.ecdsa_sign_recoverable_serialize(sig)
+        sig = self.priv_key.ecdsa_sign_recoverable(keccak256(payload), raw = True)
+        sig_serialized = self.priv_key.ecdsa_recoverable_serialize(sig)
         payload = sig_serialized[0] + chr(sig_serialized[1]) + payload
         payload_hash = keccak256(payload)
         return payload_hash + payload
